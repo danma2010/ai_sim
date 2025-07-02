@@ -1,0 +1,37 @@
+
+-----
+
+### **Key Changes and How to Use**
+
+1.  **No Line Numbers**: The input command file no longer uses line numbers.
+2.  **Labels**: You can now define a label on any line by writing a name followed by a colon, like `my_loop:`. The label can be on a line by itself or on the same line as a command.
+3.  **Updated `goto` and `branch`**:
+      * `goto [label]`: The second parameter is now the label you want to jump to. The data field is ignored.
+      * `bran [label] [data]`: The second parameter is the target label, and the third is the hexadecimal data value to compare with `prdata`.
+
+### **Example Command File (`commands.txt`)**
+
+Here is an example demonstrating the new label-based syntax.
+
+```
+-- This is a comment. The parser will skip this line.
+init:
+    write 00000004 FFFFFF00
+    write 00000008 12345678
+
+read_loop:
+    read  00000004 00000000
+    bran  check_done FFFFFF00  -- If prdata is FFFFFF00, jump to 'check_done' label
+
+    -- This part is skipped if the branch is taken
+    write 0000000C AAAAAAAA
+    goto  read_loop           -- Unconditionally loop back
+
+check_done:
+    read  00000008 00000000
+
+end_program:
+    -- An empty label to mark the end, program halts after this.
+```
+
+This updated structure makes test sequences much more flexible and readable, as you can insert or delete lines without needing to manually update all jump targets.
