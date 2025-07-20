@@ -3,3 +3,7 @@ please make VHDL code as an expert design engineer that produce entity for use f
 
 prompt 2:
 please change such that there are no line numbers. line may contain label [label:] instead of command. goto command is pointing to label.
+
+full prompt:
+please make VHDL code as an expert design engineer that produce entity for use for simulation only. it function is: 1. model an APB bus driver. 2. implement a simple bus model to simulation of CPU master. 3. use a command set consist of: write, read, branch, goto 4. reads a test file that hosts the list of commands. each line consist of single command. each command consist of [op code] [address] [data] 5. line may contain label [label:] instead of command. goto command is pointing to label.
+
